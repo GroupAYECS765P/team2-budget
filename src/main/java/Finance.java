@@ -27,11 +27,12 @@ public class Finance {
             amount = overlappingAmount(days, formattedStart);
         } else {
             LocalDate currentDate = LocalDate.of(start.getYear(), start.getMonthValue(), 1);
+            Period period = new Period(start, end);
             while (currentDate.isBefore(end.withDayOfMonth(1).plusMonths(1))) {
                 double result = 0;
                 for (Budget budget : repo.getAll()) {
                     if (currentDate.format(formatter).equals(budget.yearMonth)) {
-                        long overlappingDays = new Period(start, end).getOverlappingDays(budget.createPeriod());
+                        long overlappingDays = period.getOverlappingDays(budget.createPeriod());
                         result = budget.dailyAmount() * overlappingDays;
                         break;
                     }
