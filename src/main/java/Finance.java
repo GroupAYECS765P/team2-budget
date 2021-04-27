@@ -7,7 +7,6 @@ import java.util.List;
 
 public class Finance {
 
-//	@InjectMocks
 	private IBudgetRepo repo;
 
 	public Finance(IBudgetRepo repo) {
@@ -36,7 +35,6 @@ public class Finance {
 					int days = start.lengthOfMonth() - start.getDayOfMonth() +1;
 					amount += notFunnAmount(days, start.lengthOfMonth(),data, tempFormat);
 					temp = temp.plusMonths(1);
-					continue;
 				} else if(tempFormat.equals(formattedEnd)){
 					int days = end.getDayOfMonth();
 					amount += notFunnAmount(days, end.lengthOfMonth(),data, tempFormat);
@@ -47,27 +45,10 @@ public class Finance {
 					temp = temp.plusMonths(1);
 				}
 			}
-
-
-
-//			long month = start.until(end, ChronoUnit.MONTHS);
-//			long between = ChronoUnit.MONTHS.between(start, end);
-//			if(between == 1){
-//
-//				long start_days = start.lengthOfMonth() - start.getDayOfMonth() +1;
-//				long end_days = end.getDayOfMonth();
-//
-//				amount += notFunnAmount(start_days, start.lengthOfMonth(), data, formattedStart);
-//				amount += notFunnAmount(end_days , end.lengthOfMonth(), data,formattedEnd);
-//			} else{
-//
-//			}
 		}
 
-//		data.stream().filter()
-return amount;
+		return amount;
 
-//		return 0;
 	}
 
 	private double notFunnAmount(long days,  int lengthOfMonth, List<Budget> data, String formattedDate) {
