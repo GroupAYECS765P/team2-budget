@@ -30,13 +30,10 @@ public class Finance {
                 int days;
                 if (tempFormat.equals(formattedStart)) {
                     days = start.lengthOfMonth() - start.getDayOfMonth() + 1;
-//                    amount += overlappingAmount(days, currentDate.lengthOfMonth(), tempFormat);
                 } else if (tempFormat.equals(formattedEnd)) {
                     days = end.getDayOfMonth();
-//                    amount += overlappingAmount(days, currentDate.lengthOfMonth(), tempFormat);
                 } else {
                     days = currentDate.lengthOfMonth();
-//                    amount += overlappingAmount(days, currentDate.lengthOfMonth(), tempFormat);
                 }
                 amount += overlappingAmount(days, currentDate.lengthOfMonth(), tempFormat);
                 currentDate = currentDate.plusMonths(1);
