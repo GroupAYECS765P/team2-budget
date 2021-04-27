@@ -32,17 +32,18 @@ public class Finance {
                 if (tempFormat.equals(formattedStart)) {
                     int days = start.lengthOfMonth() - start.getDayOfMonth() + 1;
                     amount += overlappingAmount(days, start.lengthOfMonth(), data, tempFormat);
-                    currentDate = currentDate.plusMonths(1);
+//                    currentDate = currentDate.plusMonths(1);
                 } else if (tempFormat.equals(formattedEnd)) {
                     int days = end.getDayOfMonth();
                     amount += overlappingAmount(days, end.lengthOfMonth(), data, tempFormat);
-                    currentDate = currentDate.plusMonths(1);
+//                    currentDate = currentDate.plusMonths(1);
 //                    break;
                 } else {
                     int days = currentDate.lengthOfMonth();
                     amount += overlappingAmount(days, currentDate.lengthOfMonth(), data, tempFormat);
-                    currentDate = currentDate.plusMonths(1);
+//                    currentDate = currentDate.plusMonths(1);
                 }
+                currentDate = currentDate.plusMonths(1);
             }
         }
 
