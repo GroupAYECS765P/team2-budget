@@ -45,8 +45,7 @@ public class Finance {
     private double overlappingAmount(long days, String formattedDate) {
         for (Budget budget : repo.getAll()) {
             if (formattedDate.equals(budget.yearMonth)) {
-                int daysOfBudget = budget.days();
-                return (double) budget.amount / daysOfBudget * days;
+                return (double) budget.amount / budget.days() * days;
             }
         }
         return 0;
