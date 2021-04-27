@@ -27,7 +27,7 @@ public class Finance {
             amount = overlappingAmount(days, start.lengthOfMonth(), data, formattedStart);
         } else {
             LocalDate currentDate = LocalDate.of(start.getYear(), start.getMonthValue(), 1); // 20211001
-            while (true) {
+            while (currentDate.isBefore(end.withDayOfMonth(1).plusMonths(1))) {
                 String tempFormat = currentDate.format(formatter);
                 if (tempFormat.equals(formattedStart)) {
                     int days = start.lengthOfMonth() - start.getDayOfMonth() + 1;
