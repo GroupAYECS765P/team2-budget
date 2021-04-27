@@ -26,18 +26,10 @@ public class Finance {
             long days = start.until(end, DAYS) + 1;
             amount = overlappingAmount(days, formattedStart);
         } else {
-            LocalDate currentDate = LocalDate.of(start.getYear(), start.getMonthValue(), 1);
             Period period = new Period(start, end);
-//            while (currentDate.isBefore(end.withDayOfMonth(1).plusMonths(1))) {
             for (Budget budget : repo.getAll()) {
                 amount += budget.overlappingAmount(period);
-//                    if (currentDate.format(formatter).equals(budget.yearMonth)) {
-//                        amount += budget.overlappingAmount(period);
-//                        break;
-//                    }
             }
-            currentDate = currentDate.plusMonths(1);
-//            }
         }
 
         return amount;
