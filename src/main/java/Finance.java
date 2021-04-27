@@ -34,7 +34,14 @@ public class Finance {
                 } else {
                     days = currentDate.lengthOfMonth();
                 }
-                amount += overlappingAmount(days, currentDate.format(formatter));
+                double result = 0;
+                for (Budget budget : repo.getAll()) {
+                    if (currentDate.format(formatter).equals(budget.yearMonth)) {
+                        result = budget.dailyAmount() * (long) days;
+                        break;
+                    }
+                }
+                amount += result;
                 currentDate = currentDate.plusMonths(1);
             }
         }
