@@ -15,7 +15,6 @@ public class Finance {
         if (end.isBefore(start)) {
             return 0;
         }
-        List<Budget> data = repo.getAll();
         double amount = 0;
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMM");
@@ -24,20 +23,20 @@ public class Finance {
 
         if (formattedStart.equals(formattedEnd)) {
             long days = start.until(end, ChronoUnit.DAYS) + 1;
-            amount = overlappingAmount(days, start.lengthOfMonth(), data, formattedStart);
+            amount = overlappingAmount(days, start.lengthOfMonth(), repo.getAll(), formattedStart);
         } else {
             LocalDate currentDate = LocalDate.of(start.getYear(), start.getMonthValue(), 1);
             while (currentDate.isBefore(end.withDayOfMonth(1).plusMonths(1))) {
                 String tempFormat = currentDate.format(formatter);
                 if (tempFormat.equals(formattedStart)) {
                     int days = start.lengthOfMonth() - start.getDayOfMonth() + 1;
-                    amount += overlappingAmount(days, start.lengthOfMonth(), data, tempFormat);
+                    amount += overlappingAmount(days, start.lengthOfMonth(), repo.getAll(), tempFormat);
                 } else if (tempFormat.equals(formattedEnd)) {
                     int days = end.getDayOfMonth();
-                    amount += overlappingAmount(days, end.lengthOfMonth(), data, tempFormat);
+                    amount += overlappingAmount(days, end.lengthOfMonth(), repo.getAll(), tempFormat);
                 } else {
                     int days = currentDate.lengthOfMonth();
-                    amount += overlappingAmount(days, currentDate.lengthOfMonth(), data, tempFormat);
+                    amount += overlappingAmount(days, currentDate.lengthOfMonth(), repo.getAll(), tempFormat);
                 }
                 currentDate = currentDate.plusMonths(1);
             }
