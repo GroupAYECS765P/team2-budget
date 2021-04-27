@@ -53,7 +53,7 @@ public class Finance {
     private double notFunnAmount(long days, int lengthOfMonth, List<Budget> data, String formattedDate) {
         for (Budget budget : data) {
             if (formattedDate.equals(budget.yearMonth)) {
-                return budget.amount / lengthOfMonth * days;
+                return (double) budget.amount / lengthOfMonth * days;
             }
         }
         return 0;
