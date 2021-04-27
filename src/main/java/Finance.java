@@ -50,9 +50,9 @@ public class Finance {
             overlappingDays = DAYS.between(start, budget.lastDay()) + 1;
         } else if (budget.yearMonth.equals(end.format(ofPattern("yyyyMM")))) {
             overlappingDays = DAYS.between(budget.firstDay(), end) + 1;
-//            overlappingDays = end.getDayOfMonth();
         } else {
-            overlappingDays = budget.days();
+            overlappingDays = DAYS.between(budget.firstDay(), budget.lastDay()) + 1;
+//            overlappingDays = budget.days();
         }
         return overlappingDays;
     }
