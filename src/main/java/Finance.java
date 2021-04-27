@@ -12,14 +12,10 @@ public class Finance {
         if (end.isBefore(start)) {
             return 0;
         }
-        double amount = 0;
 
         Period period = new Period(start, end);
-        for (Budget budget : repo.getAll()) {
-            amount += budget.overlappingAmount(period);
-        }
 
-        return amount;
+        return repo.getAll().stream().mapToDouble(budget -> budget.overlappingAmount(period)).sum();
     }
 
     private double overlappingAmount(long days, String formattedDate) {
