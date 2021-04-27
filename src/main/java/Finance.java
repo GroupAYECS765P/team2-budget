@@ -31,7 +31,7 @@ public class Finance {
                 double result = 0;
                 for (Budget budget : repo.getAll()) {
                     if (currentDate.format(formatter).equals(budget.yearMonth)) {
-                        long overlappingDays = new Period(start, end).getOverlappingDays(new Period(budget.firstDay(), budget.lastDay()));
+                        long overlappingDays = new Period(start, end).getOverlappingDays(createPeriod(budget));
                         result = budget.dailyAmount() * overlappingDays;
                         break;
                     }
@@ -42,6 +42,10 @@ public class Finance {
         }
 
         return amount;
+    }
+
+    private Period createPeriod(Budget budget) {
+        return new Period(budget.firstDay(), budget.lastDay());
     }
 
     private double overlappingAmount(long days, String formattedDate) {
