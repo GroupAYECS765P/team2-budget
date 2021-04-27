@@ -22,7 +22,7 @@ public class Finance {
 
         if (formattedStart.equals(formattedEnd)) {
             long days = start.until(end, ChronoUnit.DAYS) + 1;
-            amount = overlappingAmount(days, start.lengthOfMonth(), formattedStart);
+            amount = overlappingAmount(days, formattedStart);
         } else {
             LocalDate currentDate = LocalDate.of(start.getYear(), start.getMonthValue(), 1);
             while (currentDate.isBefore(end.withDayOfMonth(1).plusMonths(1))) {
@@ -34,7 +34,7 @@ public class Finance {
                 } else {
                     days = currentDate.lengthOfMonth();
                 }
-                amount += overlappingAmount(days, currentDate.lengthOfMonth(), currentDate.format(formatter));
+                amount += overlappingAmount(days, currentDate.format(formatter));
                 currentDate = currentDate.plusMonths(1);
             }
         }
@@ -42,7 +42,7 @@ public class Finance {
         return amount;
     }
 
-    private double overlappingAmount(long days, int lengthOfMonth, String formattedDate) {
+    private double overlappingAmount(long days, String formattedDate) {
         for (Budget budget : repo.getAll()) {
             if (formattedDate.equals(budget.yearMonth)) {
                 int daysOfBudget = budget.days();
