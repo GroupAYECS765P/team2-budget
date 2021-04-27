@@ -46,19 +46,22 @@ public class Finance {
 
     private long getOverlappingDays(LocalDate start, LocalDate end, Budget budget) {
         long overlappingDays;
+        LocalDate overlappingStart;
+        LocalDate overlappingEnd;
         if (budget.yearMonth.equals(start.format(ofPattern("yyyyMM")))) {
-            LocalDate overlappingStart = start;
-            LocalDate overlappingEnd = budget.lastDay();
-            overlappingDays = DAYS.between(overlappingStart, overlappingEnd) + 1;
+            overlappingStart = start;
+            overlappingEnd = budget.lastDay();
+//            overlappingDays = DAYS.between(overlappingStart, overlappingEnd) + 1;
         } else if (budget.yearMonth.equals(end.format(ofPattern("yyyyMM")))) {
-            LocalDate overlappingStart = budget.firstDay();
-            LocalDate overlappingEnd = end;
-            overlappingDays = DAYS.between(overlappingStart, overlappingEnd) + 1;
+            overlappingStart = budget.firstDay();
+            overlappingEnd = end;
+//            overlappingDays = DAYS.between(overlappingStart, overlappingEnd) + 1;
         } else {
-            LocalDate overlappingStart = budget.firstDay();
-            LocalDate overlappingEnd = budget.lastDay();
-            overlappingDays = DAYS.between(overlappingStart, overlappingEnd) + 1;
+            overlappingStart = budget.firstDay();
+            overlappingEnd = budget.lastDay();
+//            overlappingDays = DAYS.between(overlappingStart, overlappingEnd) + 1;
         }
+        overlappingDays = DAYS.between(overlappingStart, overlappingEnd) + 1;
         return overlappingDays;
     }
 
