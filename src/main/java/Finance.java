@@ -2,7 +2,7 @@ import java.time.LocalDate;
 
 public class Finance {
 
-    private IBudgetRepo repo;
+    private final IBudgetRepo repo;
 
     public Finance(IBudgetRepo repo) {
         this.repo = repo;
@@ -15,15 +15,8 @@ public class Finance {
 
         Period period = new Period(start, end);
 
-        return repo.getAll().stream().mapToDouble(budget -> budget.overlappingAmount(period)).sum();
-    }
-
-    private double overlappingAmount(long days, String formattedDate) {
-        for (Budget budget : repo.getAll()) {
-            if (formattedDate.equals(budget.yearMonth)) {
-                return budget.dailyAmount() * days;
-            }
-        }
-        return 0;
+        return repo.getAll().stream()
+                .mapToDouble(budget -> budget.overlappingAmount(period))
+                .sum();
     }
 }
