@@ -32,4 +32,8 @@ public class Budget {
     private YearMonth getMonth() {
         return YearMonth.parse(yearMonth, DateTimeFormatter.ofPattern("yyyyMM"));
     }
+
+    Period createPeriod() {
+        return new Period(firstDay(), lastDay());
+    }
 }
