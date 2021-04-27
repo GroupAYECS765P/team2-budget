@@ -1,7 +1,6 @@
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.Temporal;
 
 public class Budget {
     String yearMonth;
@@ -12,20 +11,23 @@ public class Budget {
         this.amount = amount;
     }
 
-    public int days() {
-        YearMonth myYearMonth = getMonth();
-        return myYearMonth.lengthOfMonth();
+    public double overlappingAmount(Period period) {
+        return dailyAmount() * period.getOverlappingDays(createPeriod());
     }
 
-    public LocalDate lastDay() {
+    private int days() {
+        return getMonth().lengthOfMonth();
+    }
+
+    private LocalDate lastDay() {
         return getMonth().atEndOfMonth();
     }
 
-    public LocalDate firstDay() {
+    private LocalDate firstDay() {
         return getMonth().atDay(1);
     }
 
-    double dailyAmount() {
+    private double dailyAmount() {
         return (double) amount / days();
     }
 
@@ -33,11 +35,7 @@ public class Budget {
         return YearMonth.parse(yearMonth, DateTimeFormatter.ofPattern("yyyyMM"));
     }
 
-    Period createPeriod() {
+    private Period createPeriod() {
         return new Period(firstDay(), lastDay());
-    }
-
-    double overlappingAmount(Period period) {
-        return dailyAmount() * period.getOverlappingDays(createPeriod());
     }
 }
