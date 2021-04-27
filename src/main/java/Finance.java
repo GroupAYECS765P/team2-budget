@@ -26,16 +26,15 @@ public class Finance {
         } else {
             LocalDate currentDate = LocalDate.of(start.getYear(), start.getMonthValue(), 1);
             while (currentDate.isBefore(end.withDayOfMonth(1).plusMonths(1))) {
-                String tempFormat = currentDate.format(formatter);
                 int days;
-                if (tempFormat.equals(formattedStart)) {
+                if (currentDate.format(formatter).equals(formattedStart)) {
                     days = start.lengthOfMonth() - start.getDayOfMonth() + 1;
-                } else if (tempFormat.equals(formattedEnd)) {
+                } else if (currentDate.format(formatter).equals(formattedEnd)) {
                     days = end.getDayOfMonth();
                 } else {
                     days = currentDate.lengthOfMonth();
                 }
-                amount += overlappingAmount(days, currentDate.lengthOfMonth(), tempFormat);
+                amount += overlappingAmount(days, currentDate.lengthOfMonth(), currentDate.format(formatter));
                 currentDate = currentDate.plusMonths(1);
             }
         }
