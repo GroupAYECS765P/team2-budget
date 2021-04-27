@@ -12,23 +12,15 @@ public class Period {
         this.end = end;
     }
 
-    public LocalDate getStart() {
-        return start;
-    }
-
-    public LocalDate getEnd() {
-        return end;
-    }
-
     long getOverlappingDays(Budget budget) {
         LocalDate overlappingStart;
         LocalDate overlappingEnd;
-        if (budget.yearMonth.equals(getStart().format(ofPattern("yyyyMM")))) {
-            overlappingStart = getStart();
+        if (budget.yearMonth.equals(start.format(ofPattern("yyyyMM")))) {
+            overlappingStart = start;
             overlappingEnd = budget.lastDay();
-        } else if (budget.yearMonth.equals(getEnd().format(ofPattern("yyyyMM")))) {
+        } else if (budget.yearMonth.equals(end.format(ofPattern("yyyyMM")))) {
             overlappingStart = budget.firstDay();
-            overlappingEnd = getEnd();
+            overlappingEnd = end;
         } else {
             overlappingStart = budget.firstDay();
             overlappingEnd = budget.lastDay();
