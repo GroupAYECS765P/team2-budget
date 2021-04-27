@@ -22,15 +22,19 @@ public class Finance {
         String formattedStart = start.format(formatter);
         String formattedEnd = end.format(formatter);
 
-        if (formattedStart.equals(formattedEnd)) {
-            long days = start.until(end, DAYS) + 1;
-            amount = overlappingAmount(days, formattedStart);
-        } else {
-            Period period = new Period(start, end);
-            for (Budget budget : repo.getAll()) {
-                amount += budget.overlappingAmount(period);
-            }
+        Period period = new Period(start, end);
+        for (Budget budget : repo.getAll()) {
+            amount += budget.overlappingAmount(period);
         }
+//        if (formattedStart.equals(formattedEnd)) {
+//            long days = start.until(end, DAYS) + 1;
+//            amount = overlappingAmount(days, formattedStart);
+//        } else {
+//            Period period = new Period(start, end);
+//            for (Budget budget : repo.getAll()) {
+//                amount += budget.overlappingAmount(period);
+//            }
+//        }
 
         return amount;
     }
