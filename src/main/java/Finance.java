@@ -26,18 +26,18 @@ public class Finance {
         } else {
             LocalDate currentDate = LocalDate.of(start.getYear(), start.getMonthValue(), 1);
             while (currentDate.isBefore(end.withDayOfMonth(1).plusMonths(1))) {
-                int overlappingDays;
-                if (currentDate.format(formatter).equals(formattedStart)) {
-                    overlappingDays = start.lengthOfMonth() - start.getDayOfMonth() + 1;
-                } else if (currentDate.format(formatter).equals(formattedEnd)) {
-                    overlappingDays = end.getDayOfMonth();
-                } else {
-                    overlappingDays = currentDate.lengthOfMonth();
-                }
                 double result = 0;
                 for (Budget budget : repo.getAll()) {
                     if (currentDate.format(formatter).equals(budget.yearMonth)) {
-                        result = budget.dailyAmount() * (long) overlappingDays;
+                        int overlappingDays;
+                        if (currentDate.format(formatter).equals(formattedStart)) {
+                            overlappingDays = start.lengthOfMonth() - start.getDayOfMonth() + 1;
+                        } else if (currentDate.format(formatter).equals(formattedEnd)) {
+                            overlappingDays = end.getDayOfMonth();
+                        } else {
+                            overlappingDays = currentDate.lengthOfMonth();
+                        }
+                        result = budget.dailyAmount() * overlappingDays;
                         break;
                     }
                 }
