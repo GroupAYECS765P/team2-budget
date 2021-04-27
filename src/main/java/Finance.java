@@ -9,9 +9,6 @@ public class Finance {
     }
 
     public double queryBudget(LocalDate start, LocalDate end) {
-        if (end.isBefore(start)) {
-            return 0;
-        }
 
         Period period = new Period(start, end);
 
