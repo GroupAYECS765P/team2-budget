@@ -37,7 +37,8 @@ public class Finance {
                         } else if (budget.yearMonth.equals(end.format(ofPattern("yyyyMM")))) {
                             overlappingDays = end.getDayOfMonth();
                         } else {
-                            overlappingDays = currentDate.lengthOfMonth();
+                            overlappingDays = budget.days();
+//                            overlappingDays = currentDate.lengthOfMonth();
                         }
                         result = budget.dailyAmount() * overlappingDays;
                         break;
