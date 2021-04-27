@@ -29,7 +29,7 @@ public class Finance {
                 String tempFormat = currentDate.format(formatter);
                 if (tempFormat.equals(formattedStart)) {
                     int days = start.lengthOfMonth() - start.getDayOfMonth() + 1;
-                    amount += overlappingAmount(days, start.lengthOfMonth(), tempFormat);
+                    amount += overlappingAmount(days, currentDate.lengthOfMonth(), tempFormat);
                 } else if (tempFormat.equals(formattedEnd)) {
                     int days = end.getDayOfMonth();
                     amount += overlappingAmount(days, end.lengthOfMonth(), tempFormat);
