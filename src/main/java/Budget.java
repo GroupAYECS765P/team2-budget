@@ -1,5 +1,7 @@
+import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.Temporal;
 
 public class Budget {
     String yearMonth;
@@ -11,11 +13,19 @@ public class Budget {
     }
 
     public int days() {
-        YearMonth myYearMonth = YearMonth.parse(yearMonth, DateTimeFormatter.ofPattern("yyyyMM"));
+        YearMonth myYearMonth = getMonth();
         return myYearMonth.lengthOfMonth();
+    }
+
+    public LocalDate lastDay() {
+        return getMonth().atEndOfMonth();
     }
 
     double dailyAmount() {
         return (double) amount / days();
+    }
+
+    private YearMonth getMonth() {
+        return YearMonth.parse(yearMonth, DateTimeFormatter.ofPattern("yyyyMM"));
     }
 }

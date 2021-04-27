@@ -1,8 +1,8 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 import static java.time.format.DateTimeFormatter.ofPattern;
+import static java.time.temporal.ChronoUnit.DAYS;
 
 public class Finance {
 
@@ -23,7 +23,7 @@ public class Finance {
         String formattedEnd = end.format(formatter);
 
         if (formattedStart.equals(formattedEnd)) {
-            long days = start.until(end, ChronoUnit.DAYS) + 1;
+            long days = start.until(end, DAYS) + 1;
             amount = overlappingAmount(days, formattedStart);
         } else {
             LocalDate currentDate = LocalDate.of(start.getYear(), start.getMonthValue(), 1);
@@ -31,7 +31,7 @@ public class Finance {
                 double result = 0;
                 for (Budget budget : repo.getAll()) {
                     if (currentDate.format(formatter).equals(budget.yearMonth)) {
-                        int overlappingDays = getOverlappingDays(start, end, budget);
+                        long overlappingDays = getOverlappingDays(start, end, budget);
                         result = budget.dailyAmount() * overlappingDays;
                         break;
                     }
@@ -44,10 +44,11 @@ public class Finance {
         return amount;
     }
 
-    private int getOverlappingDays(LocalDate start, LocalDate end, Budget budget) {
-        int overlappingDays;
+    private long getOverlappingDays(LocalDate start, LocalDate end, Budget budget) {
+        long overlappingDays;
         if (budget.yearMonth.equals(start.format(ofPattern("yyyyMM")))) {
-            int result = start.lengthOfMonth() - start.getDayOfMonth() + 1;
+            long result = DAYS.between(start, budget.lastDay()) + 1;
+//            int result = start.lengthOfMonth() - start.getDayOfMonth() + 1;
             overlappingDays = result;
         } else if (budget.yearMonth.equals(end.format(ofPattern("yyyyMM")))) {
             overlappingDays = end.getDayOfMonth();
