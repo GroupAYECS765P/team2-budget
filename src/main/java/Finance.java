@@ -26,22 +26,18 @@ public class Finance {
             long days = start.until(end, ChronoUnit.DAYS) + 1;
             amount = overlappingAmount(days, start.lengthOfMonth(), data, formattedStart);
         } else {
-            LocalDate currentDate = LocalDate.of(start.getYear(), start.getMonthValue(), 1); // 20211001
+            LocalDate currentDate = LocalDate.of(start.getYear(), start.getMonthValue(), 1);
             while (currentDate.isBefore(end.withDayOfMonth(1).plusMonths(1))) {
                 String tempFormat = currentDate.format(formatter);
                 if (tempFormat.equals(formattedStart)) {
                     int days = start.lengthOfMonth() - start.getDayOfMonth() + 1;
                     amount += overlappingAmount(days, start.lengthOfMonth(), data, tempFormat);
-//                    currentDate = currentDate.plusMonths(1);
                 } else if (tempFormat.equals(formattedEnd)) {
                     int days = end.getDayOfMonth();
                     amount += overlappingAmount(days, end.lengthOfMonth(), data, tempFormat);
-//                    currentDate = currentDate.plusMonths(1);
-//                    break;
                 } else {
                     int days = currentDate.lengthOfMonth();
                     amount += overlappingAmount(days, currentDate.lengthOfMonth(), data, tempFormat);
-//                    currentDate = currentDate.plusMonths(1);
                 }
                 currentDate = currentDate.plusMonths(1);
             }
