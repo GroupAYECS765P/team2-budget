@@ -2,6 +2,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
+import static java.time.format.DateTimeFormatter.ofPattern;
+
 public class Finance {
 
     private IBudgetRepo repo;
@@ -16,7 +18,7 @@ public class Finance {
         }
         double amount = 0;
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMM");
+        DateTimeFormatter formatter = ofPattern("yyyyMM");
         String formattedStart = start.format(formatter);
         String formattedEnd = end.format(formatter);
 
@@ -30,7 +32,7 @@ public class Finance {
                 for (Budget budget : repo.getAll()) {
                     if (currentDate.format(formatter).equals(budget.yearMonth)) {
                         int overlappingDays;
-                        if (budget.yearMonth.equals(start.format(formatter))) {
+                        if (budget.yearMonth.equals(start.format(ofPattern("yyyyMM")))) {
                             overlappingDays = start.lengthOfMonth() - start.getDayOfMonth() + 1;
                         } else if (budget.yearMonth.equals(end.format(formatter))) {
                             overlappingDays = end.getDayOfMonth();
