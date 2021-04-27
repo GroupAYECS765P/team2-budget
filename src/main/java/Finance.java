@@ -32,8 +32,7 @@ public class Finance {
                 double result = 0;
                 for (Budget budget : repo.getAll()) {
                     if (currentDate.format(formatter).equals(budget.yearMonth)) {
-                        long overlappingDays = period.getOverlappingDays(budget.createPeriod());
-                        result = budget.dailyAmount() * overlappingDays;
+                        result = budget.dailyAmount() * period.getOverlappingDays(budget.createPeriod());
                         break;
                     }
                 }
