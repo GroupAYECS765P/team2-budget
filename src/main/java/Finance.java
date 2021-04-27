@@ -31,15 +31,7 @@ public class Finance {
                 double result = 0;
                 for (Budget budget : repo.getAll()) {
                     if (currentDate.format(formatter).equals(budget.yearMonth)) {
-                        int overlappingDays;
-                        if (budget.yearMonth.equals(start.format(ofPattern("yyyyMM")))) {
-                            overlappingDays = start.lengthOfMonth() - start.getDayOfMonth() + 1;
-                        } else if (budget.yearMonth.equals(end.format(ofPattern("yyyyMM")))) {
-                            overlappingDays = end.getDayOfMonth();
-                        } else {
-                            overlappingDays = budget.days();
-//                            overlappingDays = currentDate.lengthOfMonth();
-                        }
+                        int overlappingDays = getOverlappingDays(start, end, budget);
                         result = budget.dailyAmount() * overlappingDays;
                         break;
                     }
@@ -50,6 +42,18 @@ public class Finance {
         }
 
         return amount;
+    }
+
+    private int getOverlappingDays(LocalDate start, LocalDate end, Budget budget) {
+        int overlappingDays;
+        if (budget.yearMonth.equals(start.format(ofPattern("yyyyMM")))) {
+            overlappingDays = start.lengthOfMonth() - start.getDayOfMonth() + 1;
+        } else if (budget.yearMonth.equals(end.format(ofPattern("yyyyMM")))) {
+            overlappingDays = end.getDayOfMonth();
+        } else {
+            overlappingDays = budget.days();
+        }
+        return overlappingDays;
     }
 
     private double overlappingAmount(long days, String formattedDate) {
